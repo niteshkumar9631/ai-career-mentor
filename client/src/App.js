@@ -47,7 +47,7 @@ function App() {
     setIsLoading(true);
     setResponse("");
     try {
-      const res = await axios.post("/api/ai/career-path", {
+      const res = await axios.post("http://localhost:5000/api/ai/career-path", {
         query,
         responseType: isShort ? "short" : "long",
       });
