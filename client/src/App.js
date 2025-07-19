@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
@@ -8,7 +8,6 @@ function App() {
   const [isShort, setIsShort] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [particles, setParticles] = useState([]);
-  const canvasRef = useRef(null);
 
   // Create floating particles effect
   useEffect(() => {
@@ -22,7 +21,7 @@ function App() {
           size: Math.random() * 3 + 1,
           speedX: (Math.random() - 0.5) * 0.5,
           speedY: (Math.random() - 0.5) * 0.5,
-          opacity: Math.random() * 0.5 + 0.2,
+          opacity: Math.random() * 0.5 + 0.2
         });
       }
       setParticles(newParticles);
@@ -30,13 +29,11 @@ function App() {
 
     generateParticles();
     const interval = setInterval(() => {
-      setParticles(prev => 
+      setParticles(prev =>
         prev.map(particle => ({
           ...particle,
-          x: particle.x + particle.speedX,
-          y: particle.y + particle.speedY,
-          x: particle.x > window.innerWidth ? 0 : particle.x < 0 ? window.innerWidth : particle.x,
-          y: particle.y > window.innerHeight ? 0 : particle.y < 0 ? window.innerHeight : particle.y,
+          x: particle.x > window.innerWidth ? 0 : particle.x < 0 ? window.innerWidth : particle.x + particle.speedX,
+          y: particle.y > window.innerHeight ? 0 : particle.y < 0 ? window.innerHeight : particle.y + particle.speedY
         }))
       );
     }, 50);
@@ -47,16 +44,13 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!query.trim()) return;
-    
     setIsLoading(true);
     setResponse("");
-
     try {
       const res = await axios.post("/api/ai/career-path", {
         query,
         responseType: isShort ? "short" : "long",
       });
-
       setResponse(res.data.roadmap);
     } catch (err) {
       console.error(err);
@@ -123,8 +117,8 @@ function App() {
                 />
                 <div className="input-glow"></div>
               </div>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className={`submit-btn ${isLoading ? 'loading' : ''}`}
                 disabled={isLoading}
               >
