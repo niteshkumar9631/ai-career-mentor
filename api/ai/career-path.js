@@ -1,8 +1,11 @@
-const express = require("express");
-const router = express.Router();
-const axios = require("axios");
+import axios from "axios";
 
-router.post("/career-path", async (req, res) => {
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    res.status(405).json({ message: "Method Not Allowed" });
+    return;
+  }
+
   const { query, responseType } = req.body;
 
   let autoSkills = "Basic web development";
@@ -47,8 +50,7 @@ ${responseType === "short"
     );
 
     const roadmap = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "No roadmap generated.";
-    res.json({ roadmap });
-
+    res.status(200).json({ roadmap });
   } catch (error) {
     console.error("Gemini API Error:", JSON.stringify(error.response?.data || error.message, null, 2));
     res.status(500).json({
@@ -56,7 +58,4 @@ ${responseType === "short"
       error: error.response?.data || error.message,
     });
   }
-});
-
-// ✅ Must be exported as a router function
-module.exports = router;
+} 

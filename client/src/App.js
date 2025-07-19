@@ -52,7 +52,7 @@ function App() {
     setResponse("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/ai/career-path", {
+      const res = await axios.post("/api/ai/career-path", {
         query,
         responseType: isShort ? "short" : "long",
       });
@@ -100,7 +100,7 @@ function App() {
       <div className="container">
         <div className="header">
           <div className="logo-container">
-            <div className="logo-icon">🚀</div>
+            <div className="logo-icon"></div>
             <h1 className="title">
               <span className="title-text">AI Career</span>
               <span className="title-highlight">Mentor</span>
