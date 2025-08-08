@@ -79,4 +79,6 @@ npm run server
 - This project is open-source and available under the MIT License.
 
  ### 🙋‍♂️ Author
-- Nitesh Kumar
+**Nitesh Kumar**  
+- 📧 [niteshkumar9631](mailto:niteshkumar9631@gmail.com)  
+- 🌐 [GitHub Profile](https://github.com/niteshkumar9631)
